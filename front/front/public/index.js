@@ -7,8 +7,6 @@ async function getTodos() {
     url: "https://jsonplaceholder.typicode.com/todos",
   });
 
-  console.log(todoList.data);
-
   const result = todoList.data.slice(0, 10);
 
   const listPlace = document.querySelector(".todoList");
@@ -20,7 +18,10 @@ async function getTodos() {
     const checkbox$ = document.createElement("input");
     checkbox$.setAttribute("type", "checkbox");
     const li$ = document.createElement("li");
-    const xBtn$ = document.createElement("button");
+    const xBtn$ = document.createElement("input");
+    xBtn$.setAttribute("type", "button");
+    xBtn$.setAttribute("value", "X");
+    xBtn$.addEventListener("onclick", deleteTodo);
     li$.append(checkbox$);
     li$.append(result[k].title);
     li$.append(xBtn$);
@@ -30,7 +31,15 @@ async function getTodos() {
   listPlace.append(ul);
 }
 
-window.addEventListener("DOMContentLoaded", getTodos);
+// todo 체크 시 취소선 추가/글씨 색 변경
+const todoCheck = document.querySelectorAll('input[type="checkbox"]');
+
+for (let k = 0; k < todoCheck.length; k++) {
+  if (todoCheck[k].checked) {
+    const checkLi = todoCheck[k];
+    console.log(checkLi);
+  }
+}
 
 /* 
   2. 새로운 입력창의 Todo를 Todo 목록에 추가하고, 입력창을 초기화합니다.
@@ -66,3 +75,4 @@ function deleteTodo(item) {}
  - HTML 문서의 DOM 내용이 완전히 로드되었을 때 실행됩니다.
  - 따로 함수를 만들어도 좋고, 함수를 만들지 않아도 좋습니다.
 */
+window.addEventListener("DOMContentLoaded", getTodos);

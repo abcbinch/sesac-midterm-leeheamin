@@ -16,3 +16,22 @@
 .todoList {
   border: 2px solid pink;
 }
+
+.checked {
+  color: red;
+  text-decoration: line-through;
+}
+
+input[type="button"] {
+  background-color: skyblue;
+}
+
+/* 1단 */
+@media screen and (max-width: 540px) {
+}
+/* 2단 */
+@media screen and (max-width: 960px) {
+}
+/* 4단 */
+@media screen and (min-width: 960px) {
+}
