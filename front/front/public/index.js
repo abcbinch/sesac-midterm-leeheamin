@@ -1,6 +1,34 @@
 /* 1. https://jsonplaceholder.typicode.com/todos 로부터 데이터를 불러와서 추가해주는 함수 getTodos() 선언 */
 // getTodos()는 추후에 HTML DOM 내용이 완전히 로드되었을 때 실행되어야 합니다.
-async function getTodos() {}
+
+async function getTodos() {
+  const todoList = await axios({
+    method: "get",
+    url: "https://jsonplaceholder.typicode.com/todos",
+  });
+
+  console.log(todoList.data);
+
+  const result = todoList.data.slice(0, 10);
+
+  const listPlace = document.querySelector(".todoList");
+
+  const ul = document.createElement("ul");
+
+  for (let k = 0; k < 10; k++) {
+    // const checkbox$ = document.createElement("input[type=checkbox]");
+    const li$ = document.createElement("li");
+    // const xBtn$ = document.createElement("button");
+    // li$.append(checkbox$);
+    li$.append(result[k].title);
+    // li$.append(xBtn$);
+    ul.append(li$);
+  }
+
+  listPlace.append(ul);
+}
+
+window.addEventListener("DOMContentLoaded", getTodos);
 
 /* 
   2. 새로운 입력창의 Todo를 Todo 목록에 추가하고, 입력창을 초기화합니다.
