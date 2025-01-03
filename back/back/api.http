@@ -1,4 +1,4 @@
-@server = http://localhost:8080
+@server = http://localhost:8081
 
 
 ### Todo 추가 (case1. 요청 본문에 title, done 필드 모두 작성하는 경우)
