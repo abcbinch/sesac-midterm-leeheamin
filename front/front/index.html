@@ -8,12 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <h1>hello world</h1>
-    <div class="addTodo">
-      <input type="text" id="todo" />
-      <button onclick="addTodo()">작성</button>
+    <div class="list-zone">
+      <header>
+        <img src="./public/codingon.png" />
+        <span>TODO List</span>
+      </header>
+      <div class="addTodo">
+        <input type="text" id="todo" />
+        <button onclick="addTodo()">작성</button>
+      </div>
+      <div class="todoList"></div>
     </div>
-    <div class="todoList"></div>
+
     <script src="./public/index.js"></script>
   </body>
 </html>
