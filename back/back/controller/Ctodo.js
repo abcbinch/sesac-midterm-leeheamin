@@ -1,5 +1,8 @@
 const { Todo } = require("../models/index");
 
+//생성할 때 title이 없어도 에러가 안 뜸.
+//수정이 안 이루어짐. id가 존재하든 하지 않든.
+
 /* Todos 전체 목록 불러오기 */
 exports.readAll = async (req, res) => {
   try {
@@ -22,13 +25,17 @@ exports.readOne = async (req, res) => {
       },
     });
 
-    res.send({
-      id: oneTodo.id,
-      title: oneTodo.title,
-      done: oneTodo.done,
-      createdAt: oneTodo.createdAt,
-      updatedAt: oneTodo.updatedAt,
-    });
+    if (oneTodo) {
+      res.send({
+        id: oneTodo.id,
+        title: oneTodo.title,
+        done: oneTodo.done,
+        createdAt: oneTodo.createdAt,
+        updatedAt: oneTodo.updatedAt,
+      });
+    } else {
+      res.send({ message: "Todo not found" });
+    }
   } catch (err) {
     console.log(err);
     res.send(err);
@@ -42,10 +49,17 @@ exports.create = async (req, res) => {
       title: req.body.title,
       done: req.body.done,
     });
+
+    if (Todo.title) {
+      res.send({ message: "Internal Server Error" });
+    } else {
+      res.send(newTodo);
+    }
   } catch (err) {
     console.log(err);
   }
 };
+//title이 없으면 에러메시지가 떠야 하는데, 뜨지 않음.
 
 /* 기존 Todo 수정 */
 exports.update = async (req, res) => {
@@ -61,6 +75,12 @@ exports.update = async (req, res) => {
         done: req.body.done,
       }
     );
+
+    if (changeTodo) {
+      res.send(changeTodo);
+    } else {
+      res.send({ message: "Todo not found" });
+    }
   } catch (err) {
     console.log(err);
     res.send(err);
