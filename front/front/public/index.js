@@ -14,14 +14,16 @@ async function getTodos() {
   const listPlace = document.querySelector(".todoList");
 
   const ul = document.createElement("ul");
+  ul.classList.add("your-todo");
 
   for (let k = 0; k < 10; k++) {
-    // const checkbox$ = document.createElement("input[type=checkbox]");
+    const checkbox$ = document.createElement("input");
+    checkbox$.setAttribute("type", "checkbox");
     const li$ = document.createElement("li");
-    // const xBtn$ = document.createElement("button");
-    // li$.append(checkbox$);
+    const xBtn$ = document.createElement("button");
+    li$.append(checkbox$);
     li$.append(result[k].title);
-    // li$.append(xBtn$);
+    li$.append(xBtn$);
     ul.append(li$);
   }
 
@@ -36,7 +38,22 @@ window.addEventListener("DOMContentLoaded", getTodos);
   - 작성 버튼 클릭 시 addTodo() 함수가 실행됩니다.
   - 입력 창에서 Enter 키 입력시에도 addTodo() 함수가 실행됩니다.
 */
-function addTodo() {}
+function addTodo() {
+  const ul = document.querySelector(".your-todo");
+  const li = document.createElement("li");
+  const checkbox = document.createElement("input");
+  checkbox.setAttribute("type", "checkbox");
+  const todo = document.getElementById("todo").value;
+
+  if (todo === "") {
+    alert("내용을 입력해주세요.");
+    return false;
+  }
+
+  li.append(checkbox);
+  li.textContent = todo;
+  ul.append(li);
+}
 
 /*  3. x 버튼을 클릭하면 클릭한 버튼을 갖는 Todo 항목이 삭제됩니다. */
 // 삭제 함수의 이름 및 모양 변경 가능
