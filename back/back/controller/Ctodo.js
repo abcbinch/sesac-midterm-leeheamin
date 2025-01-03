@@ -50,10 +50,10 @@ exports.create = async (req, res) => {
       done: req.body.done,
     });
 
-    if (Todo.title) {
-      res.send({ message: "Internal Server Error" });
-    } else {
+    if (newTodo) {
       res.send(newTodo);
+    } else if (!newTodo) {
+      res.send({ message: "Internal Server Error" });
     }
   } catch (err) {
     console.log(err);
@@ -84,7 +84,7 @@ exports.update = async (req, res) => {
         createdAt: changeTodo.createdAt,
         updatedAt: changeTodo.updatedAt,
       });
-    } else {
+    } else if (!changeTodo) {
       res.send({ message: "Todo not found" });
     }
   } catch (err) {
