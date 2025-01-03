@@ -1,7 +1,7 @@
 const { Todo } = require("../models/index");
 
-//생성할 때 title이 없어도 에러가 안 뜸.
-//수정이 안 이루어짐. id가 존재하든 하지 않든.
+//create/생성할 때 title이 없어도 에러가 안 뜸.
+//update/수정이 안 될 때 에러가 안 뜸.
 
 /* Todos 전체 목록 불러오기 */
 exports.readAll = async (req, res) => {
@@ -66,18 +66,24 @@ exports.update = async (req, res) => {
   try {
     const changeTodo = await Todo.update(
       {
-        where: {
-          id: req.params.id, //임시
-        },
-      },
-      {
         title: req.body.title,
         done: req.body.done,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
       }
     );
 
     if (changeTodo) {
-      res.send(changeTodo);
+      res.send({
+        id: changeTodo.id,
+        title: changeTodo.title,
+        done: changeTodo.done,
+        createdAt: changeTodo.createdAt,
+        updatedAt: changeTodo.updatedAt,
+      });
     } else {
       res.send({ message: "Todo not found" });
     }
